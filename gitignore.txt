@@ -1,0 +1,3 @@
+firmware/TP4_DC-DC-uC.X/build/*
+*/build/*
+*.o
