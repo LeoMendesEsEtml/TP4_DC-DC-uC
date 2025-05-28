@@ -5,7 +5,7 @@
         <group>
             <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/adc/src/drv_adc_static.c</file>
             <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/tmr/src/drv_tmr_static.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_interrupt.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/framework/peripheral/adc/processor/adc_p32mx130f064b.h</file>
             <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_tasks.c</file>
             <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/app.h</file>
             <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_init.c</file>

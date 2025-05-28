@@ -87,7 +87,7 @@ APP_DATA appData;
 void timer1calback() {
     uint8_t i;
     if (DRV_ADC_SamplesAvailable()) {
-        for (i = 0; i <= 2; i++) {
+        for (i = 0; i <= 15; i++) {
             appData.ValAd[i] = DRV_ADC_SamplesRead(i);
         }
     }

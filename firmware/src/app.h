@@ -112,7 +112,7 @@ typedef struct
 {
     /* The application's current state */
     APP_STATES state;
-    uint32_t ValAd[2];
+    uint32_t ValAd[16];
 
     /* TODO: Define any additional data used by the application. */
 
