@@ -69,7 +69,7 @@ void DRV_ADC_Initialize(void)
     /* Sample Acquisition Time (Auto Sample Mode) */	
     PLIB_ADC_SampleAcquisitionTimeSet(DRV_ADC_ID_1, 31);
     /* Select Sampling Mode */
-    PLIB_ADC_SamplingModeSelect(DRV_ADC_ID_1, ADC_SAMPLING_MODE_MUXA);
+    PLIB_ADC_SamplingModeSelect(DRV_ADC_ID_1, ADC_SAMPLING_MODE_ALTERNATE_INPUT);
     /* Number of Samples Per Interrupt */
     PLIB_ADC_SamplesPerInterruptSelect(DRV_ADC_ID_1, ADC_2SAMPLES_PER_INTERRUPT);
 
@@ -82,25 +82,29 @@ void DRV_ADC_Initialize(void)
     PLIB_ADC_ResultBufferModeSelect(DRV_ADC_ID_1, ADC_BUFFER_MODE_ONE_16WORD_BUFFER);
 
     /* Channel Selections */
+
     /* MUX A Negative Input Select */
     PLIB_ADC_MuxChannel0InputNegativeSelect(DRV_ADC_ID_1, ADC_MUX_A, ADC_INPUT_NEGATIVE_VREF_MINUS);
-/*scan false*/
-/*escan false*/
 
-    /* MUX A Positive Input Select dfdfd*/
-    PLIB_ADC_MuxChannel0InputPositiveSelect(DRV_ADC_ID_1, ADC_MUX_A, ADC_INPUT_POSITIVE_AN9);
-
+    /* MUX B Negative Input Select */
+    PLIB_ADC_MuxChannel0InputNegativeSelect(DRV_ADC_ID_1, ADC_MUX_B, ADC_INPUT_NEGATIVE_VREF_MINUS);
+ 
+/*scan enable*/
+    /* Select Scan Input 0 */
+    PLIB_ADC_InputScanMaskAdd(DRV_ADC_ID_1, ADC_INPUT_SCAN_AN9);
+    
+    /* Enable Scan mode */
+    PLIB_ADC_MuxAInputScanEnable(DRV_ADC_ID_1);
 
  
  
-/*scan false*/
-/*escan false*/
+/*scan enable*/
+    /* Select Scan Input 1 */
+    PLIB_ADC_InputScanMaskAdd(DRV_ADC_ID_1, ADC_INPUT_SCAN_AN10);
+    
+    /* Enable Scan mode */
+    PLIB_ADC_MuxAInputScanEnable(DRV_ADC_ID_1);
 
-    /* MUX A Positive Input Select dfdfd*/
-    PLIB_ADC_MuxChannel0InputPositiveSelect(DRV_ADC_ID_1, ADC_MUX_A, ADC_INPUT_POSITIVE_AN10);
-
-
- 
  
 }
 
