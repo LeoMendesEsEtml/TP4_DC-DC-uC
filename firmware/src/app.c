@@ -148,6 +148,7 @@ void APP_Tasks ( void )
         {
             bool appInitialized = true;
                //lalalalalalal
+            //ajout de truc 
             DRV_ADC_Open();
             DRV_ADC_Start();
             DRV_TMR0_Start();
