@@ -147,7 +147,7 @@ void APP_Tasks ( void )
         case APP_STATE_INIT:
         {
             bool appInitialized = true;
-
+               //lalalalalalal
             DRV_ADC_Open();
             DRV_ADC_Start();
             DRV_TMR0_Start();

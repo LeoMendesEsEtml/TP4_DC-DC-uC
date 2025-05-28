@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/adc/src/drv_adc_static.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/tmr/src/drv_tmr_static.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_interrupt.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_tasks.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/app.h</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_init.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/app.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/main.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/EIND%20-%20REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/tmr/drv_tmr_static.h</file>
+        </group>
     </open-files>
 </project-private>
