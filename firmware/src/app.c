@@ -146,20 +146,12 @@ void APP_Tasks ( void )
         /* Application's initial state. */
         case APP_STATE_INIT:
         {
-            bool appInitialized = true;
-               //lalalalalalal
-            //ajout de truc 
-            DRV_ADC_Open();
-            DRV_ADC_Start();
-            DRV_TMR0_Start();
-            DRV_TMR1_Start();
-            DRV_TMR2_Start();
-            if (appInitialized)
-              
-            {
             
-                appData.state = APP_STATE_SERVICE_TASKS;
-            }
+            
+           
+              App_Init_Periph();
+              appData.state = APP_STATE_SERVICE_TASKS;
+            
             break;
         }
 
@@ -182,6 +174,33 @@ void APP_Tasks ( void )
     }
 }
 
+// *****************************************************************************
+/**
+ * @brief Initialise les périphériques utilisés par l'application.
+ *
+ * @details
+ * Cette fonction initialise l'ADC et démarre les timers nécessaires au fonctionnement de l'application.
+ * Elle doit être appelée après l'initialisation du système, typiquement depuis la fonction SYS_Initialize.
+ *
+ * @param Aucun paramètre.
+ * @return Aucun retour.
+ *
+ * @pre Le système doit être initialisé avant d'appeler cette fonction.
+ * @post Les périphériques ADC et timers sont prêts à être utilisés.
+ */
+void App_Init_Periph(void)
+{
+    /* Initialize the ADC */
+    DRV_ADC_Open();
+    DRV_ADC_Start();
+
+    
+    /* Start the Timers */
+    DRV_TMR0_Start();
+    DRV_TMR1_Start();
+    DRV_TMR2_Start();
+    
+}
  
 
 /*******************************************************************************
