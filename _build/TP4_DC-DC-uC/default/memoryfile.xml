@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<project>                                  
+  <executable name="TP4_DC_DC_uC_default_default.elf">                 
+    <memory name="program">                 
+      <units>bytes</units>                 
+      <length>66704</length>                 
+      <used>8240</used>                     
+      <free>58464</free>                     
+    </memory>                              
+    <memory name="data">              
+      <units>bytes</units>                 
+      <length>16384</length>                 
+      <used>168</used>                     
+      <free>16216</free>                     
+    </memory>                              
+  </executable>                            
+</project>                                 
