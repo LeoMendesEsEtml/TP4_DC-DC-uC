@@ -48,6 +48,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "system_config.h"
 #include "system_definitions.h"
+#include "usart_blocking.h"
 
 
 // ****************************************************************************
@@ -159,6 +160,7 @@ void SYS_Initialize ( void* data )
  
     /* Initialize System Services */
     SYS_PORTS_Initialize();
+    USART_Blocking_Initialize(115200);
 
     /*** Interrupt Service Initialization Code ***/
     SYS_INT_Initialize();
