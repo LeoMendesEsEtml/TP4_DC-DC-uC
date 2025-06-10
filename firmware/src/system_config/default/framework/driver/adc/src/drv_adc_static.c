@@ -100,7 +100,7 @@ void DRV_ADC_Initialize(void)
  
 /*scan enable*/
     /* Select Scan Input 1 */
-    PLIB_ADC_InputScanMaskAdd(DRV_ADC_ID_1, ADC_INPUT_SCAN_AN10);
+    PLIB_ADC_InputScanMaskAdd(DRV_ADC_ID_1, ADC_INPUT_SCAN_AN4);
     
     /* Enable Scan mode */
     PLIB_ADC_MuxAInputScanEnable(DRV_ADC_ID_1);

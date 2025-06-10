@@ -174,7 +174,8 @@ build/default/production/_ext/1360937237/app.o: ../src/app.c ../src/app.h \
  ../../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeControl_Unsupported.h \
  ../../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Unsupported.h \
  ../../../../../framework/peripheral/ports/plib_ports_compatibility.h \
- ../src/app.h
+ ../src/app.h \
+ ../src/system_config/default/framework/driver/adc/drv_adc_static.h
 
 ../src/app.h:
 
@@ -529,3 +530,5 @@ build/default/production/_ext/1360937237/app.o: ../src/app.c ../src/app.h \
 ../../../../../framework/peripheral/ports/plib_ports_compatibility.h:
 
 ../src/app.h:
+
+../src/system_config/default/framework/driver/adc/drv_adc_static.h:
