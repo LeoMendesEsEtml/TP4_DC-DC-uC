@@ -1,3 +1,4 @@
+# cmake files support debug production
 include("${CMAKE_CURRENT_LIST_DIR}/rule.cmake")
 include("${CMAKE_CURRENT_LIST_DIR}/file.cmake")
 
@@ -31,7 +32,9 @@ add_library(TP4_DC_DC_uC_default_default_XC32_compile_cpp OBJECT ${TP4_DC_DC_uC_
     list(APPEND TP4_DC_DC_uC_default_library_list "$<TARGET_OBJECTS:TP4_DC_DC_uC_default_default_XC32_compile_cpp>")
 endif()
 
+
 add_executable(${TP4_DC_DC_uC_default_image_name} ${TP4_DC_DC_uC_default_library_list})
+set_target_properties(${TP4_DC_DC_uC_default_image_name} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${TP4_DC_DC_uC_default_output_dir})
 
 target_link_libraries(${TP4_DC_DC_uC_default_image_name} PRIVATE ${TP4_DC_DC_uC_default_default_XC32_FILE_TYPE_link})
 
@@ -39,12 +42,12 @@ target_link_libraries(${TP4_DC_DC_uC_default_image_name} PRIVATE ${TP4_DC_DC_uC_
 TP4_DC_DC_uC_default_link_rule(${TP4_DC_DC_uC_default_image_name})
 
 # Add bin2hex target for converting built file to a .hex file.
+string(REGEX REPLACE [.]elf$ .hex TP4_DC_DC_uC_default_image_name_hex ${TP4_DC_DC_uC_default_image_name})
 add_custom_target(TP4_DC_DC_uC_default_Bin2Hex ALL
-    ${MP_BIN2HEX} ${TP4_DC_DC_uC_default_image_name})
+    COMMAND ${MP_BIN2HEX} ${TP4_DC_DC_uC_default_output_dir}/${TP4_DC_DC_uC_default_image_name}
+    BYPRODUCTS ${TP4_DC_DC_uC_default_output_dir}/${TP4_DC_DC_uC_default_image_name_hex}
+    COMMENT Convert built file to .hex)
 add_dependencies(TP4_DC_DC_uC_default_Bin2Hex ${TP4_DC_DC_uC_default_image_name})
 
-# Post build target to copy built file to the output directory.
-add_custom_command(TARGET ${TP4_DC_DC_uC_default_image_name} POST_BUILD
-                    COMMAND ${CMAKE_COMMAND} -E make_directory ${TP4_DC_DC_uC_default_output_dir}
-                    COMMAND ${CMAKE_COMMAND} -E copy ${TP4_DC_DC_uC_default_image_name} ${TP4_DC_DC_uC_default_output_dir}/${TP4_DC_DC_uC_default_original_image_name}
-                    BYPRODUCTS ${TP4_DC_DC_uC_default_output_dir}/${TP4_DC_DC_uC_default_original_image_name})
+
+

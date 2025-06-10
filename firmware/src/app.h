@@ -83,6 +83,30 @@ extern "C" {
     This enumeration defines the valid application states.  These states
     determine the behavior of the application at various times.
 */
+#define ADC_SAMPLE_COUNT 2
+#define SLIDING_WINDOW_SIZE 10
+
+
+/**
+ * @brief Structure pour le contrôle PID
+ *
+ * @details
+ * Contient les paramètres et variables nécessaires au calcul PID.
+ *
+ * @param Kp Gain proportionnel
+ * @param Ki Gain intégral
+ * @param Kd Gain dérivé
+ * @param previous_error Dernière erreur calculée
+ * @param integral Somme des erreurs (terme intégral)
+ */
+typedef struct {
+    float Kp;              /**< Gain proportionnel */
+    float Ki;              /**< Gain intégral */
+    float Kd;              /**< Gain dérivé */
+    float previous_error;  /**< Dernière erreur calculée */
+    float integral;        /**< Somme des erreurs (terme intégral) */
+} PID_t;
+
 
 typedef enum
 {
@@ -93,8 +117,6 @@ typedef enum
 	/* TODO: Define states used by the application state machine. */
 
 } APP_STATES;
-
-
 // *****************************************************************************
 /* Application Data
 
@@ -113,7 +135,12 @@ typedef struct
     /* The application's current state */
     APP_STATES state;
     uint32_t ValAd[16];
-
+    PID_t pid;                // Paramètres PID
+    uint16_t consigne_tension; // Consigne de tension
+    uint16_t tension_window[SLIDING_WINDOW_SIZE]; // Fenêtre glissante pour la tension
+    uint8_t window_index;                        // Index courant de la fenêtre
+    uint8_t window_filled;                       // Nombre d'éléments valides dans la fenêtre
+    
     /* TODO: Define any additional data used by the application. */
 
 } APP_DATA;
@@ -203,6 +230,13 @@ void APP_Tasks( void );
 
 
 void App_Init_Periph(void);
+
+
+void timer1calback(void);
+void Set_Consigne_Tension(uint16_t consigne);
+void Set_PID_Params(float kp, float ki, float kd);
+static uint16_t adc_average(uint16_t* samples, uint8_t count);
+static float pid_compute(PID_t* pid, float setpoint, float measured);
 #endif /* _APP_H */
 
 //DOM-IGNORE-BEGIN

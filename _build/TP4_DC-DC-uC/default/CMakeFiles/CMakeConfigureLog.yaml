@@ -85,8 +85,8 @@ events:
     checks:
       - "Detecting CXX compile features"
     directories:
-      source: "C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/CMakeScratch/TryCompile-lkvbiy"
-      binary: "C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/CMakeScratch/TryCompile-lkvbiy"
+      source: "C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/CMakeScratch/TryCompile-vkp2la"
+      binary: "C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/CMakeScratch/TryCompile-vkp2la"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -96,12 +96,12 @@ events:
       variable: "CMAKE_CXX_FEATURE_TEST"
       cached: true
       stdout: |
-        Change Dir: 'C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/CMakeScratch/TryCompile-lkvbiy'
+        Change Dir: 'C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/CMakeScratch/TryCompile-vkp2la'
         
-        Run Build Command(s): C:/Users/aymer/.mplab/app-finder/apps/ninja/v1.12.1/ninja.exe -v cmTC_86b12
-        [1/2] c:\\PROGRA~1\\MICROC~1\\xc32\\v2.50\\bin\\XC32-G~1.EXE   -std=c++1y -o CMakeFiles/cmTC_86b12.dir/feature_tests.cxx.obj -c "C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/CMakeScratch/TryCompile-lkvbiy/feature_tests.cxx"
-        FAILED: CMakeFiles/cmTC_86b12.dir/feature_tests.cxx.obj 
-        c:\\PROGRA~1\\MICROC~1\\xc32\\v2.50\\bin\\XC32-G~1.EXE   -std=c++1y -o CMakeFiles/cmTC_86b12.dir/feature_tests.cxx.obj -c "C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/CMakeScratch/TryCompile-lkvbiy/feature_tests.cxx"
+        Run Build Command(s): C:/Users/aymer/.mplab/app-finder/apps/ninja/v1.12.1/ninja.exe -v cmTC_57a62
+        [1/2] c:\\PROGRA~1\\MICROC~1\\xc32\\v2.50\\bin\\XC32-G~1.EXE   -std=c++1y -o CMakeFiles/cmTC_57a62.dir/feature_tests.cxx.obj -c "C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/CMakeScratch/TryCompile-vkp2la/feature_tests.cxx"
+        FAILED: CMakeFiles/cmTC_57a62.dir/feature_tests.cxx.obj 
+        c:\\PROGRA~1\\MICROC~1\\xc32\\v2.50\\bin\\XC32-G~1.EXE   -std=c++1y -o CMakeFiles/cmTC_57a62.dir/feature_tests.cxx.obj -c "C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/CMakeScratch/TryCompile-vkp2la/feature_tests.cxx"
         ninja: build stopped: subcommand failed.
         
       exitCode: 1

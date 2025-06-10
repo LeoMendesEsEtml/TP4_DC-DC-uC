@@ -1,21 +1,60 @@
 # ninja log v6
-184	3740	7707584770165505	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/main.c.o	7ec8f3d3c10c6250
-175	3623	7707584770075571	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/app.c.o	73c15ee4d8a2fb43
-214	3735	7707584770460890	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/oc/src/drv_oc_static.c.o	d0eef21bfecf35af
-253	3723	7707584770850129	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/devcon/src/sys_devcon.c.o	8d6cf08bad4a9ce3
-163	3734	7707584769955564	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/framework/system/int/src/sys_int_pic32.c.o	ea7aa094a94a23ec
-195	3736	7707584770275664	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/adc/src/drv_adc_static.c.o	c2a3d365e6ecc1e5
-268	2986	7707584771000209	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/ports/src/sys_ports_static.c.o	57e993c58d35b763
-205	3627	7707584770375645	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/oc/src/drv_oc_mapping.c.o	93405640d1c57844
-305	3916	7707584771370326	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_tasks.c.o	e950815627351ad1
-276	3850	7707584771080228	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_exceptions.c.o	aa79290a1c34731e
-241	3624	7707584770733896	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/clk/src/sys_clk_pic32mx.c.o	b680301f2d436479
-285	4040	7707584771170251	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_init.c.o	c3d7abf22f37fb39
-296	4078	7707584771280312	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_interrupt.c.o	56d62ca6d2f390aa
-222	3739	7707584770540912	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/tmr/src/drv_tmr_mapping.c.o	4689a205ccb6ff21
-231	3629	7707584770640909	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/tmr/src/drv_tmr_static.c.o	4453049b25dcde6b
-260	4241	7707584770930219	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/devcon/src/sys_devcon_pic32mx.c.o	361c94bc4912a811
-4241	6771	7707584835861335	TP4_DC_DC_uC_default_default.elf	3fc2cbc2e506fb20
-4241	6771	7707584835861335	C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/out/TP4_DC-DC-uC/default.elf	3fc2cbc2e506fb20
-60	202	7707588379756686	CMakeFiles/TP4_DC_DC_uC_default_Bin2Hex	8337426d82c9ca9e
-60	202	7707588379756686	C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/TP4_DC_DC_uC_default_Bin2Hex	8337426d82c9ca9e
+370	4793	7707638646256507	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/main.c.o	7ec8f3d3c10c6250
+358	4787	7707638646143485	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/app.c.o	73c15ee4d8a2fb43
+405	4752	7707638646613412	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/oc/src/drv_oc_static.c.o	d0eef21bfecf35af
+455	4789	7707638647113435	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/devcon/src/sys_devcon.c.o	8d6cf08bad4a9ce3
+243	4757	7707638645005713	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/framework/system/int/src/sys_int_pic32.c.o	ea7aa094a94a23ec
+382	4790	7707638646390873	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/adc/src/drv_adc_static.c.o	c2a3d365e6ecc1e5
+477	4788	7707638647341847	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/ports/src/sys_ports_static.c.o	57e993c58d35b763
+394	4774	7707638646506854	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/oc/src/drv_oc_mapping.c.o	93405640d1c57844
+510	4746	7707638647662573	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_tasks.c.o	e950815627351ad1
+485	4750	7707638647412552	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_exceptions.c.o	aa79290a1c34731e
+441	4771	7707638646973388	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/clk/src/sys_clk_pic32mx.c.o	b680301f2d436479
+494	4744	7707638647502579	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_init.c.o	c3d7abf22f37fb39
+502	4758	7707638647582594	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_interrupt.c.o	56d62ca6d2f390aa
+416	4925	7707638646723365	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/tmr/src/drv_tmr_mapping.c.o	4689a205ccb6ff21
+425	4833	7707638646823483	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/tmr/src/drv_tmr_static.c.o	4453049b25dcde6b
+466	4770	7707638647233335	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/devcon/src/sys_devcon_pic32mx.c.o	361c94bc4912a811
+4926	8269	7707638724981542	TP4_DC_DC_uC_default_default.elf	3fc2cbc2e506fb20
+4926	8269	7707638724981542	C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/out/TP4_DC-DC-uC/default.elf	3fc2cbc2e506fb20
+8269	8915	7707638725252663	CMakeFiles/TP4_DC_DC_uC_default_Bin2Hex	8337426d82c9ca9e
+8269	8915	7707638725252663	C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/TP4_DC_DC_uC_default_Bin2Hex	8337426d82c9ca9e
+103	277	7712468486507052	build.ninja	6d3f6fb99f130ccb
+77	886	7712468487861501	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/adc/src/drv_adc_static.c.o	7b511d24d4562cc3
+73	917	7712468487816343	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/main.c.o	a100b413fcd7ff8b
+63	969	7712468487716096	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/framework/system/int/src/sys_int_pic32.c.o	7c2b0b29e1572db0
+87	970	7712468487956613	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/oc/src/drv_oc_static.c.o	4fd3c7e17b991fed
+111	1164	7712468488197023	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/devcon/src/sys_devcon.c.o	71b8f51f8c921adf
+117	1193	7712468488265443	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/devcon/src/sys_devcon_pic32mx.c.o	7fd83d3c324b24d4
+93	1218	7712468488016707	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/tmr/src/drv_tmr_mapping.c.o	923b3c04932d90e1
+99	1252	7712468488071848	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/tmr/src/drv_tmr_static.c.o	5c04d416ecb8ef0
+131	1339	7712468488398345	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_exceptions.c.o	87b42dd5a0ce4e1b
+144	1352	7712468488516905	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_interrupt.c.o	4c8e150076e72237
+138	1360	7712468488460073	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_init.c.o	84198a55cf38e04f
+105	1361	7712468488141835	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/clk/src/sys_clk_pic32mx.c.o	de61d3290466ab93
+150	1362	7712468488579369	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_tasks.c.o	aeb20ca144914a66
+82	1364	7712468487901505	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/oc/src/drv_oc_mapping.c.o	3e7d1cff1c9a6ecc
+124	1411	7712468488327020	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/ports/src/sys_ports_static.c.o	4910387a9f992e74
+68	1415	7712468487771232	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/app.c.o	46f8014404004eae
+1415	2832	7712468501240332	C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/out/TP4_DC-DC-uC/default.elf	a4f669a55ec8e77d
+2832	3217	7712468515406595	CMakeFiles/TP4_DC_DC_uC_default_Bin2Hex	69a45578cfe93efa
+2832	3217	7712468515406595	C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/out/TP4_DC-DC-uC/default.hex	69a45578cfe93efa
+2832	3217	7712468515406595	C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/TP4_DC_DC_uC_default_Bin2Hex	69a45578cfe93efa
+59	672	7712577068666434	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_init.c.o	84198a55cf38e04f
+51	674	7712577068586498	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_exceptions.c.o	87b42dd5a0ce4e1b
+75	680	7712577068826462	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_tasks.c.o	aeb20ca144914a66
+36	683	7712577068436332	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/oc/src/drv_oc_mapping.c.o	3e7d1cff1c9a6ecc
+67	685	7712577068746443	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_interrupt.c.o	4c8e150076e72237
+45	687	7712577068526470	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/clk/src/sys_clk_pic32mx.c.o	de61d3290466ab93
+47	1099	7712578620031428	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_exceptions.c.o	87b42dd5a0ce4e1b
+76	1102	7712578620306606	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_tasks.c.o	aeb20ca144914a66
+33	1103	7712578619881301	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/driver/oc/src/drv_oc_mapping.c.o	3e7d1cff1c9a6ecc
+40	1107	7712578619961474	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/framework/system/clk/src/sys_clk_pic32mx.c.o	de61d3290466ab93
+56	1113	7712578620126622	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_init.c.o	84198a55cf38e04f
+65	1119	7712578620206640	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/system_config/default/system_interrupt.c.o	4c8e150076e72237
+23	673	7712579064659329	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/app.c.o	46f8014404004eae
+21	660	7712581516191395	CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir/C_/microchip/harmony/v2_06/apps/EIND_-_REGL/TP4_DC-DC-uC/firmware/src/app.c.o	46f8014404004eae
+661	1999	7712581522597243	C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/out/TP4_DC-DC-uC/default.elf	a4f669a55ec8e77d
+1999	2141	7712581535979362	CMakeFiles/TP4_DC_DC_uC_default_Bin2Hex	69a45578cfe93efa
+1999	2141	7712581535979362	C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/out/TP4_DC-DC-uC/default.hex	69a45578cfe93efa
+1999	2141	7712581535979362	C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/TP4_DC_DC_uC_default_Bin2Hex	69a45578cfe93efa

@@ -1,6 +1,6 @@
 {
     "importedFrom": "firmware\\TP4_DC-DC-uC.X",
-    "version": "1.4",
+    "version": "1.5",
     "configurations": [
         {
             "name": "default",

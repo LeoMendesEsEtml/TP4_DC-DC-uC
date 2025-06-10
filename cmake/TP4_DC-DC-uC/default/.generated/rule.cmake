@@ -7,10 +7,11 @@ function(TP4_DC_DC_uC_default_default_XC32_assemble_rule target)
         "-g"
         "${ASSEMBLER_PRE}"
         "-mprocessor=32MX130F064B"
-        "-Wa,--defsym=__MPLAB_BUILD=1${MP_EXTRA_AS_POST},-I${CMAKE_CURRENT_SOURCE_DIR}/../../../firmware/TP4_DC-DC-uC.X"
+        "-Wa,--defsym=__MPLAB_BUILD=1${MP_EXTRA_AS_POST},--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--gdwarf-2,-I${CMAKE_CURRENT_SOURCE_DIR}/../../../firmware/TP4_DC-DC-uC.X"
         "-mdfp=${PACK_REPO_PATH}/Microchip/PIC32MX_DFP/1.5.259")
     list(REMOVE_ITEM options "")
     target_compile_options(${target} PRIVATE "${options}")
+    target_compile_definitions(${target} PRIVATE "__DEBUG")
     target_include_directories(${target} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../../firmware/TP4_DC-DC-uC.X")
 endfunction()
 function(TP4_DC_DC_uC_default_default_XC32_assembleWithPreprocess_rule target)
@@ -19,11 +20,14 @@ function(TP4_DC_DC_uC_default_default_XC32_assembleWithPreprocess_rule target)
         "assembler-with-cpp"
         "-g"
         "${MP_EXTRA_AS_PRE}"
+        "${DEBUGGER_NAME_AS_MACRO}"
         "-mprocessor=32MX130F064B"
-        "-Wa,--defsym=__MPLAB_BUILD=1${MP_EXTRA_AS_POST},-I${CMAKE_CURRENT_SOURCE_DIR}/../../../firmware/TP4_DC-DC-uC.X")
+        "-Wa,--defsym=__MPLAB_BUILD=1${MP_EXTRA_AS_POST},--defsym=__MPLAB_DEBUG=1,--gdwarf-2,--defsym=__DEBUG=1,-I${CMAKE_CURRENT_SOURCE_DIR}/../../../firmware/TP4_DC-DC-uC.X")
     list(REMOVE_ITEM options "")
     target_compile_options(${target} PRIVATE "${options}")
-    target_compile_definitions(${target} PRIVATE "XPRJ_default=default")
+    target_compile_definitions(${target}
+        PRIVATE "__DEBUG"
+        PRIVATE "XPRJ_default=default")
     target_include_directories(${target} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../../firmware/TP4_DC-DC-uC.X")
 endfunction()
 function(TP4_DC_DC_uC_default_default_XC32_compile_rule target)
@@ -38,7 +42,9 @@ function(TP4_DC_DC_uC_default_default_XC32_compile_rule target)
         "-mdfp=${PACK_REPO_PATH}/Microchip/PIC32MX_DFP/1.5.259")
     list(REMOVE_ITEM options "")
     target_compile_options(${target} PRIVATE "${options}")
-    target_compile_definitions(${target} PRIVATE "XPRJ_default=default")
+    target_compile_definitions(${target}
+        PRIVATE "__DEBUG"
+        PRIVATE "XPRJ_default=default")
     target_include_directories(${target}
         PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../../firmware/src"
         PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../../firmware/src/system_config/default"
@@ -51,6 +57,7 @@ function(TP4_DC_DC_uC_default_default_XC32_compile_cpp_rule target)
     set(options
         "-g"
         "${CC_PRE}"
+        "${DEBUGGER_NAME_AS_MACRO}"
         "-mprocessor=32MX130F064B"
         "-frtti"
         "-fexceptions"
@@ -62,15 +69,19 @@ function(TP4_DC_DC_uC_default_default_XC32_compile_cpp_rule target)
         "-mdfp=${PACK_REPO_PATH}/Microchip/PIC32MX_DFP/1.5.259")
     list(REMOVE_ITEM options "")
     target_compile_options(${target} PRIVATE "${options}")
-    target_compile_definitions(${target} PRIVATE "XPRJ_default=default")
+    target_compile_definitions(${target}
+        PRIVATE "__DEBUG"
+        PRIVATE "XPRJ_default=default")
     target_include_directories(${target} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../../firmware/TP4_DC-DC-uC.X")
 endfunction()
 function(TP4_DC_DC_uC_default_link_rule target)
     set(options
         "-g"
         "${MP_EXTRA_LD_PRE}"
+        "${DEBUGGER_OPTION_TO_LINKER}"
+        "${DEBUGGER_NAME_AS_MACRO}"
         "-mprocessor=32MX130F064B"
-        "-Wl,--defsym=__MPLAB_BUILD=1${MP_EXTRA_LD_POST},--defsym=_min_heap_size=0,--gc-sections,--no-code-in-dinit,--no-dinit-in-serial-mem,-L${CMAKE_CURRENT_SOURCE_DIR}/../../../firmware/TP4_DC-DC-uC.X,--memorysummary,memoryfile.xml"
+        "-Wl,--defsym=__MPLAB_BUILD=1${MP_EXTRA_LD_POST},--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=_min_heap_size=0,--gc-sections,--no-code-in-dinit,--no-dinit-in-serial-mem,-L${CMAKE_CURRENT_SOURCE_DIR}/../../../firmware/TP4_DC-DC-uC.X,--memorysummary,memoryfile.xml"
         "-mdfp=${PACK_REPO_PATH}/Microchip/PIC32MX_DFP/1.5.259")
     list(REMOVE_ITEM options "")
     target_link_options(${target} PRIVATE "${options}")

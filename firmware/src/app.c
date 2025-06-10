@@ -84,14 +84,6 @@ APP_DATA appData;
 // *****************************************************************************
 // *****************************************************************************
 
-void timer1calback() {
-    uint8_t i;
-    if (DRV_ADC_SamplesAvailable()) {
-        for (i = 0; i <= 15; i++) {
-            appData.ValAd[i] = DRV_ADC_SamplesRead(i);
-        }
-    }
-}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -122,6 +114,16 @@ void APP_Initialize ( void )
 {
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
+    uint8_t i = 0;
+    appData.pid.Kp = 1.0f;
+    appData.pid.Ki = 0.0f;
+    appData.pid.Kd = 0.0f;
+    appData.pid.previous_error = 0.0f;
+    appData.pid.integral = 0.0f;
+    appData.consigne_tension = 2000;
+    for (i = 0; i < SLIDING_WINDOW_SIZE; i++) appData.tension_window[i] = 0;
+    appData.window_index = 0;
+    appData.window_filled = 0;
 
     
     /* TODO: Initialize your application's state machine and other
@@ -158,12 +160,24 @@ void APP_Tasks ( void )
         case APP_STATE_SERVICE_TASKS:
         {
             LED2_Toggle();
-
+ uint32_t sum = 0;
+ uint8_t i = 0;
+ // Calcul de la moyenne glissante
+       
+        for (i = 0; i < appData.window_filled; i++) {
+            sum += appData.tension_window[i];
+        }
+        float tension_moyenne = (float)sum / appData.window_filled;
+        // Calcul PID sur la tension
+        float pid_out = pid_compute(&appData.pid, (float)appData.consigne_tension, tension_moyenne);
+        // Limiter la sortie PID pour le PWM (0-100%)
+        if (pid_out < 0) pid_out = 0;
+        if (pid_out > 100) pid_out = 100;
+        DRV_OC0_PulseWidthSet((uint16_t)pid_out); // Appliquer la nouvelle valeur sur OC2
             break;
         }
 
-        /* TODO: implement your application state machine.*/
-        
+       
 
         /* The default state should never be executed. */
         default:
@@ -174,7 +188,95 @@ void APP_Tasks ( void )
     }
 }
 
-// *****************************************************************************
+
+
+
+
+// Paramètres PID et consigne configurables
+// static PID_t pid = { .Kp = 1.0f, .Ki = 0.0f, .Kd = 0.0f, .previous_error = 0.0f, .integral = 0.0f };
+// static uint16_t consigne_tension = 2000; // Peut être modifié dynamiquement
+
+/**
+ * @brief Permet de configurer dynamiquement la consigne de tension.
+ * @param consigne Nouvelle consigne de tension
+ */
+void Set_Consigne_Tension(uint16_t consigne) {
+    appData.consigne_tension = consigne;
+}
+
+/**
+ * @brief Permet de configurer dynamiquement les paramètres PID.
+ * @param kp Gain proportionnel
+ * @param ki Gain intégral
+ * @param kd Gain dérivé
+ */
+void Set_PID_Params(float kp, float ki, float kd) {
+    appData.pid.Kp = kp;
+    appData.pid.Ki = ki;
+    appData.pid.Kd = kd;
+    appData.pid.integral = 0.0f;
+    appData.pid.previous_error = 0.0f;
+}
+
+
+
+/**
+ * @brief Calcule la moyenne des échantillons ADC
+ * @param samples Tableau d'échantillons
+ * @param count Nombre d'échantillons
+ * @return Moyenne
+ */
+static uint16_t adc_average(uint16_t* samples, uint8_t count) {
+    uint32_t sum = 0;
+    uint8_t i = 0;
+    for (i = 0; i < count; i++) {
+        sum += samples[i];
+    }
+    return (uint16_t)(sum / count);
+}
+
+/**
+ * @brief Calcule la sortie PID
+ * @param pid Structure PID
+ * @param setpoint Consigne
+ * @param measured Mesure
+ * @return Sortie PID
+ */
+static float pid_compute(PID_t* pid, float setpoint, float measured) {
+    float error = setpoint - measured;
+    pid->integral += error;
+    float derivative = error - pid->previous_error;
+    float output = pid->Kp * error + pid->Ki * pid->integral + pid->Kd * derivative;
+    pid->previous_error = error;
+    return output;
+}
+
+/**
+ * @brief Callback du timer 1 pour la régulation PID de l'alimentation.
+ *
+ * @details
+ * Lit les échantillons ADC (courant et tension), effectue une moyenne glissante sur 10 mesures de tension,
+ * calcule l'erreur de tension, applique le PID et ajuste le PWM sur OC2.
+ *
+ * @param Aucun paramètre.
+ * @return Aucun retour.
+ *
+ * @pre Le module ADC doit être initialisé et en cours d'acquisition.
+ * @post Le PWM OC2 est ajusté selon la régulation PID.
+ */
+void timer1calback() {
+    uint16_t adc_samples[ADC_SAMPLE_COUNT];
+    uint8_t i = 0;
+    if (DRV_ADC_SamplesAvailable()) {
+        for (i = 0; i < ADC_SAMPLE_COUNT; i++) {
+            adc_samples[i] = DRV_ADC_SamplesRead(i);
+        }
+        appData.tension_window[appData.window_index] = adc_samples[1];
+        appData.window_index = (appData.window_index + 1) % SLIDING_WINDOW_SIZE;
+        if (appData.window_filled < SLIDING_WINDOW_SIZE) appData.window_filled++;
+    }
+}
+
 /**
  * @brief Initialise les périphériques utilisés par l'application.
  *

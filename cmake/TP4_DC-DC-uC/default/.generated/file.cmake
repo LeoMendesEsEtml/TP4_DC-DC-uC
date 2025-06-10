@@ -24,15 +24,8 @@ set_source_files_properties(${TP4_DC_DC_uC_default_default_XC32_FILE_TYPE_compil
 set(TP4_DC_DC_uC_default_default_XC32_FILE_TYPE_compile_cpp)
 set_source_files_properties(${TP4_DC_DC_uC_default_default_XC32_FILE_TYPE_compile_cpp} PROPERTIES LANGUAGE CXX)
 set(TP4_DC_DC_uC_default_default_XC32_FILE_TYPE_link "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../../bin/framework/peripheral/PIC32MX130F064B_peripherals.a")
+set(TP4_DC_DC_uC_default_image_name "default.elf")
 
-# The (internal) path to the resulting build image.
-set(TP4_DC_DC_uC_default_internal_image_name "${CMAKE_CURRENT_SOURCE_DIR}/../../../_build/TP4_DC-DC-uC/default/default.elf")
-
-# The name of the resulting image, including namespace for configuration.
-set(TP4_DC_DC_uC_default_image_name "TP4_DC_DC_uC_default_default.elf")
-
-# The name of the image, excluding the namespace for configuration.
-set(TP4_DC_DC_uC_default_original_image_name "default.elf")
 
 # The output directory of the final image.
 set(TP4_DC_DC_uC_default_output_dir "${CMAKE_CURRENT_SOURCE_DIR}/../../../out/TP4_DC-DC-uC")
