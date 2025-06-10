@@ -1,0 +1,5 @@
+C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/TP4_DC_DC_uC_default_default_XC32_compile.dir
+C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/default.elf.dir
+C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/TP4_DC_DC_uC_default_Bin2Hex.dir
+C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/edit_cache.dir
+C:/microchip/harmony/v2_06/apps/EIND - REGL/TP4_DC-DC-uC/_build/TP4_DC-DC-uC/default/CMakeFiles/rebuild_cache.dir
