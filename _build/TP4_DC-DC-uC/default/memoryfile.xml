@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <project>                                  
-  <executable name="dist/default/production/TP4_DC-DC-uC.X.production.elf">                 
+  <executable name="C:\microchip\harmony\v2_06\apps\EIND - REGL\TP4_DC-DC-uC\out\TP4_DC-DC-uC\default.elf">                 
     <memory name="program">                 
       <units>bytes</units>                 
       <length>66704</length>                 
-      <used>11404</used>                     
-      <free>55300</free>                     
+      <used>11408</used>                     
+      <free>55296</free>                     
     </memory>                              
     <memory name="data">              
       <units>bytes</units>                 
