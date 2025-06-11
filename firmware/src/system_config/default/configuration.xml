@@ -127,7 +127,7 @@
       <Template dnOrder="1">
         <Name dnOrder="0">sys_ports_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/system/ports/src</Path>
-        <Checksum dnOrder="2">5DD76D037A3D11CA9BC988B7C5FCABB7</Checksum>
+        <Checksum dnOrder="2">730EA129E0F7100B460018059765F94A</Checksum>
       </Template>
       <Template dnOrder="2">
         <Name dnOrder="0">system_init.c</Name>
@@ -166,7 +166,7 @@
       <Template dnOrder="9">
         <Name dnOrder="0">drv_adc_static.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/default/framework/driver/adc</Path>
-        <Checksum dnOrder="2">57D4A4589A35776DAE30A5D6D9E1D63B</Checksum>
+        <Checksum dnOrder="2">7E703AC44663C37E020DF29E9660B4E2</Checksum>
       </Template>
       <Template dnOrder="10">
         <Name dnOrder="0">sys_devcon.c</Name>
@@ -176,7 +176,7 @@
       <Template dnOrder="11">
         <Name dnOrder="0">drv_adc_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/driver/adc/src</Path>
-        <Checksum dnOrder="2">60C1D799344E3F7D3D02D877DBE70B2C</Checksum>
+        <Checksum dnOrder="2">0B234B57D3AF5F2FA58860017ACEDE4F</Checksum>
       </Template>
       <Template dnOrder="12">
         <Name dnOrder="0">app.c</Name>
@@ -205,7 +205,7 @@
       <Template dnOrder="17">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/default</Path>
-        <Checksum dnOrder="2">2F3EF59D6E30B34244C87FCFDC05D5E3</Checksum>
+        <Checksum dnOrder="2">E7216D10347212A799AAE7C6700FC87D</Checksum>
       </Template>
       <Template dnOrder="18">
         <Name dnOrder="0">app.h</Name>
@@ -214,7 +214,7 @@
       <Template dnOrder="19">
         <Name dnOrder="0">drv_tmr_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/driver/tmr/src</Path>
-        <Checksum dnOrder="2">FFE80FA36520FB48CEE7E3E0A7C7D025</Checksum>
+        <Checksum dnOrder="2">7EC90825CC9BFDEFE0F8EA3DB634B006</Checksum>
       </Template>
       <Template dnOrder="20">
         <Name dnOrder="0">system_interrupt.c</Name>

@@ -141,8 +141,6 @@ void APP_Initialize(void) {
 #define DEBUG
 
 void APP_Tasks(void) {
-    static uint16_t adc_samples[ADC_SAMPLE_COUNT];
-    uint8_t i = 0;
     /* Check the application's current state. */
     switch (appData.state) {
             /* Application's initial state. */
@@ -164,14 +162,7 @@ void APP_Tasks(void) {
 #ifdef DEBUG
 
             DRV_OC0_PulseWidthSet(400); // Appliquer la nouvelle valeur sur OC2
-            if (DRV_ADC_SamplesAvailable()) {
-                for (i = 0; i < ADC_SAMPLE_COUNT; i++) {
-                    adc_samples[i] = DRV_ADC_SamplesRead(i);
-                }
-                appData.tension_window[appData.window_index] = adc_samples[1];
-                appData.window_index = (appData.window_index + 1) % SLIDING_WINDOW_SIZE;
-                if (appData.window_filled < SLIDING_WINDOW_SIZE) appData.window_filled++;
-            }            
+
 #endif 
 #ifndef DEBUG
             uint32_t sum = 0;
@@ -278,17 +269,17 @@ static float pid_compute(PID_t* pid, float setpoint, float measured) {
  * @post Le PWM OC2 est ajusté selon la régulation PID.
  */
 void timer1calback() {
-//    static uint16_t adc_samples[ADC_SAMPLE_COUNT];
-//    uint8_t i = 0;
+    static uint16_t adc_samples[ADC_SAMPLE_COUNT];
+    uint8_t i = 0;
     uint8_t CadenceTask = 0;
-    //    if (DRV_ADC_SamplesAvailable()) {
-    //        for (i = 0; i < ADC_SAMPLE_COUNT; i++) {
-    //            adc_samples[i] = DRV_ADC_SamplesRead(i);
-    //        }
-    //        appData.tension_window[appData.window_index] = adc_samples[1];
-    //        appData.window_index = (appData.window_index + 1) % SLIDING_WINDOW_SIZE;
-    //        if (appData.window_filled < SLIDING_WINDOW_SIZE) appData.window_filled++;
-    //    }
+    if (DRV_ADC_SamplesAvailable()) {
+        for (i = 0; i < ADC_SAMPLE_COUNT; i++) {
+            adc_samples[i] = DRV_ADC_SamplesRead(i);
+        }
+        appData.tension_window[appData.window_index] = adc_samples[1];
+        appData.window_index = (appData.window_index + 1) % SLIDING_WINDOW_SIZE;
+        if (appData.window_filled < SLIDING_WINDOW_SIZE) appData.window_filled++;
+    }
     if (CadenceTask >= 200) {
         CadenceTask = 0;
         appData.state = APP_STATE_SERVICE_TASKS;
