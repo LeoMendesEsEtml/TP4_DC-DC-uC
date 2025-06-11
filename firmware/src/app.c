@@ -115,12 +115,12 @@ void APP_Initialize(void) {
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
     uint8_t i = 0;
-    appData.pid.Kp = 1.0f;
-    appData.pid.Ki = 0.0f;
-    appData.pid.Kd = 0.0f;
+    appData.pid.Kp = 0.25f;
+    appData.pid.Ki = 0.005f;
+    appData.pid.Kd = 0.05f;
     appData.pid.previous_error = 0.0f;
     appData.pid.integral = 0.0f;
-    appData.consigne_tension = 2000;
+    appData.consigne_tension = 4000;
     for (i = 0; i < SLIDING_WINDOW_SIZE; i++) appData.tension_window[i] = 0;
     appData.window_index = 0;
     appData.window_filled = 0;
@@ -138,7 +138,7 @@ void APP_Initialize(void) {
   Remarks:
     See prototype in app.h.
  */
-#define DEBUG
+//#define DEBUG
 
 void APP_Tasks(void) {
     /* Check the application's current state. */
@@ -149,8 +149,9 @@ void APP_Tasks(void) {
 
             BRIDGE_ENABLEOn();
             ADJ_OUT_ENABLEOn();
-
             App_Init_Periph();
+
+            DRV_OC0_PulseWidthSet(400);
             appData.state = APP_STATE_SERVICE_TASKS;
 
             break;
@@ -169,16 +170,20 @@ void APP_Tasks(void) {
             uint8_t i = 0;
             // Calcul de la moyenne glissante
 
-            for (i = 0; i < appData.window_filled; i++) {
+            for (i = 0; i < SLIDING_WINDOW_SIZE; i++) {
                 sum += appData.tension_window[i];
             }
-            float tension_moyenne = (float) sum / appData.window_filled;
+            appData.tension_moyenne = (float) sum / SLIDING_WINDOW_SIZE;
+
+
             // Calcul PID sur la tension
-            float pid_out = pid_compute(&appData.pid, (float) appData.consigne_tension, tension_moyenne);
+            appData.pid_out = pid_compute(&appData.pid, (float) appData.consigne_tension, appData.tension_moyenne);
             // Limiter la sortie PID pour le PWM (0-100%)
-            if (pid_out < 0) pid_out = 0;
-            if (pid_out > 100) pid_out = 100;
-            DRV_OC0_PulseWidthSet((uint16_t) pid_out); // Appliquer la nouvelle valeur sur OC2
+            if (appData.pid_out < 0) appData.pid_out = 0;
+            //  RC pwm need to be converted to OC pulse 
+            if (appData.pid_out > MAV_TENSION_6V_MV) appData.pid_out = MAV_TENSION_6V_MV;
+
+            DRV_OC0_PulseWidthSet((uint16_t) (appData.pid_out / MAV_TENSION_6V_MV) * OC_MAX_FOR_6VOLTS); // Appliquer la nouvelle valeur sur OC2
 #endif
             break;
         }
@@ -230,14 +235,14 @@ void Set_PID_Params(float kp, float ki, float kd) {
  * @param count Nombre d'échantillons
  * @return Moyenne
  */
-static uint16_t adc_average(uint16_t* samples, uint8_t count) {
-    uint32_t sum = 0;
-    uint8_t i = 0;
-    for (i = 0; i < count; i++) {
-        sum += samples[i];
-    }
-    return (uint16_t) (sum / count);
-}
+//static uint16_t adc_average(uint16_t* samples, uint8_t count) {
+//    uint32_t sum = 0;
+//    uint8_t i = 0;
+//    for (i = 0; i < count; i++) {
+//        sum += samples[i];
+//    }
+//    return (uint16_t) (sum / count);
+//}
 
 /**
  * @brief Calcule la sortie PID
@@ -246,12 +251,13 @@ static uint16_t adc_average(uint16_t* samples, uint8_t count) {
  * @param measured Mesure
  * @return Sortie PID
  */
-static float pid_compute(PID_t* pid, float setpoint, float measured) {
+float pid_compute(PID_t* pid, float setpoint, float measured) {
     float error = setpoint - measured;
     pid->integral += error;
     float derivative = error - pid->previous_error;
     float output = pid->Kp * error + pid->Ki * pid->integral + pid->Kd * derivative;
     pid->previous_error = error;
+    //return mV
     return output;
 }
 
@@ -276,9 +282,8 @@ void timer1calback() {
         for (i = 0; i < ADC_SAMPLE_COUNT; i++) {
             adc_samples[i] = DRV_ADC_SamplesRead(i);
         }
-        appData.tension_window[appData.window_index] = adc_samples[1];
+        appData.tension_window[appData.window_index] = (adc_samples[1]*2);
         appData.window_index = (appData.window_index + 1) % SLIDING_WINDOW_SIZE;
-        if (appData.window_filled < SLIDING_WINDOW_SIZE) appData.window_filled++;
     }
     if (CadenceTask >= 200) {
         CadenceTask = 0;

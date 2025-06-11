@@ -85,7 +85,8 @@ extern "C" {
 */
 #define ADC_SAMPLE_COUNT 2
 #define SLIDING_WINDOW_SIZE 10
-
+#define OC_MAX_FOR_6VOLTS 800
+#define MAV_TENSION_6V_MV 6000
 
 /**
  * @brief Structure pour le contrôle PID
@@ -136,11 +137,13 @@ typedef struct
     APP_STATES state;
     uint32_t ValAd[16];
     PID_t pid;                // Paramètres PID
+    uint16_t error_mv;
     uint16_t consigne_tension; // Consigne de tension
     uint16_t tension_window[SLIDING_WINDOW_SIZE]; // Fenêtre glissante pour la tension
     uint8_t window_index;                        // Index courant de la fenêtre
     uint8_t window_filled;                       // Nombre d'éléments valides dans la fenêtre
-    
+    float tension_moyenne;
+    float pid_out;
     /* TODO: Define any additional data used by the application. */
 
 } APP_DATA;
@@ -235,8 +238,8 @@ void App_Init_Periph(void);
 void timer1calback(void);
 void Set_Consigne_Tension(uint16_t consigne);
 void Set_PID_Params(float kp, float ki, float kd);
-static uint16_t adc_average(uint16_t* samples, uint8_t count);
-static float pid_compute(PID_t* pid, float setpoint, float measured);
+//uint16_t adc_average(uint16_t* samples, uint8_t count);
+float pid_compute(PID_t* pid, float setpoint, float measured);
 #endif /* _APP_H */
 
 //DOM-IGNORE-BEGIN
