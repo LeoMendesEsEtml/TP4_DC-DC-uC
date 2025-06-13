@@ -115,12 +115,12 @@ void APP_Initialize(void) {
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
     uint8_t i = 0;
-    appData.pid.Kp = 0.25f;
-    appData.pid.Ki = 0.005f;
+    appData.pid.Kp = 0.05f;
+    appData.pid.Ki = 0.5f;
     appData.pid.Kd = 0.05f;
     appData.pid.previous_error = 0.0f;
     appData.pid.integral = 0.0f;
-    appData.consigne_tension = 4000;
+    appData.consigne_tension = 5000;
     for (i = 0; i < SLIDING_WINDOW_SIZE; i++) appData.tension_window[i] = 0;
     appData.window_index = 0;
     appData.window_filled = 0;
@@ -282,7 +282,7 @@ void timer1calback() {
         for (i = 0; i < ADC_SAMPLE_COUNT; i++) {
             adc_samples[i] = DRV_ADC_SamplesRead(i);
         }
-        appData.tension_window[appData.window_index] = (adc_samples[1]*2);
+        appData.tension_window[appData.window_index] = 3300/1024*(adc_samples[1]*2);
         appData.window_index = (appData.window_index + 1) % SLIDING_WINDOW_SIZE;
     }
     if (CadenceTask >= 200) {
