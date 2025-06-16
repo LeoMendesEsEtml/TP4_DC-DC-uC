@@ -144,6 +144,10 @@ typedef struct
     uint8_t window_filled;                       // Nombre d'Ã©lÃ©ments valides dans la fenÃªtre
     float tension_moyenne;
     float pid_out;
+    uint16_t courant_window[SLIDING_WINDOW_SIZE]; // Fenêtre glissante pour le courant
+    uint8_t courant_window_index;                 // Index courant de la fenêtre de courant
+    uint8_t courant_window_filled;                // Nombre d'éléments valides dans la fenêtre de courant
+    float courant_moyenne;
     /* TODO: Define any additional data used by the application. */
 
 } APP_DATA;

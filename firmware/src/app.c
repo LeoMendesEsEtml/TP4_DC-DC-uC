@@ -115,9 +115,9 @@ void APP_Initialize(void) {
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
     uint8_t i = 0;
-    appData.pid.Kp = 0.05f;
-    appData.pid.Ki = 0.5f;
-    appData.pid.Kd = 0.05f;
+    appData.pid.Kp = 0.5f;
+    appData.pid.Ki = 0.0005f;
+    //appData.pid.Kd = 0.01f;
     appData.pid.previous_error = 0.0f;
     appData.pid.integral = 0.0f;
     appData.consigne_tension = 5000;
@@ -162,7 +162,7 @@ void APP_Tasks(void) {
             LED2_Toggle();
 #ifdef DEBUG
 
-            DRV_OC0_PulseWidthSet(400); // Appliquer la nouvelle valeur sur OC2
+            DRV_OC0_PulseWidthSet(827); // Appliquer la nouvelle valeur sur OC2
 
 #endif 
 #ifndef DEBUG
@@ -254,8 +254,7 @@ void Set_PID_Params(float kp, float ki, float kd) {
 float pid_compute(PID_t* pid, float setpoint, float measured) {
     float error = setpoint - measured;
     pid->integral += error;
-    float derivative = error - pid->previous_error;
-    float output = pid->Kp * error + pid->Ki * pid->integral + pid->Kd * derivative;
+    float output = pid->Kp * error + pid->Ki * pid->integral;
     pid->previous_error = error;
     //return mV
     return output;
@@ -277,13 +276,15 @@ float pid_compute(PID_t* pid, float setpoint, float measured) {
 void timer1calback() {
     static uint16_t adc_samples[ADC_SAMPLE_COUNT];
     uint8_t i = 0;
-    uint8_t CadenceTask = 0;
+    static uint8_t CadenceTask = 0;
     if (DRV_ADC_SamplesAvailable()) {
         for (i = 0; i < ADC_SAMPLE_COUNT; i++) {
             adc_samples[i] = DRV_ADC_SamplesRead(i);
         }
-        appData.tension_window[appData.window_index] = 3300/1024*(adc_samples[1]*2);
+        appData.tension_window[appData.window_index] = 3300 / 1023 * (adc_samples[1]*2);
         appData.window_index = (appData.window_index + 1) % SLIDING_WINDOW_SIZE;
+        appData.courant_window[appData.courant_window_index] = (uint16_t) ((((3300.0f * (float) adc_samples[0]) / 1023.0f) / 48.0f) / 0.01f);
+        appData.courant_window_index = (appData.courant_window_index + 1) % SLIDING_WINDOW_SIZE;
     }
     if (CadenceTask >= 200) {
         CadenceTask = 0;
