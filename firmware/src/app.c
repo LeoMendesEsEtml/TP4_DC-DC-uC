@@ -115,9 +115,9 @@ void APP_Initialize(void) {
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
     uint8_t i = 0;
-    appData.pid.Kp = 0.5f;
-    appData.pid.Ki = 0.0005f;
-    //appData.pid.Kd = 0.01f;
+    appData.pid.Kp = 2.0f;
+    appData.pid.Ki = 0.010f;
+    appData.pid.Kd = 0.001f;
     appData.pid.previous_error = 0.0f;
     appData.pid.integral = 0.0f;
     appData.consigne_tension = 5000;
@@ -182,9 +182,15 @@ void APP_Tasks(void) {
             if (appData.pid_out < 0) appData.pid_out = 0;
             //  RC pwm need to be converted to OC pulse 
             if (appData.pid_out > MAV_TENSION_6V_MV) appData.pid_out = MAV_TENSION_6V_MV;
+            // --- Feedforward : calcul de la base OC en fonction du courant ---
+            float OC_final = OC_FEEDFORWARD_A * appData.pid_out + OC_FEEDFORWARD_B;
+            // Limiter la sortie OC_final pour le PWM (0-OC_MAX_FOR_6VOLTS)
+            if (OC_final < 0) OC_final = 0;
+            if (OC_final > OC_MAX_FOR_6VOLTS) OC_final = OC_MAX_FOR_6VOLTS;
 
-            DRV_OC0_PulseWidthSet((uint16_t) (appData.pid_out / MAV_TENSION_6V_MV) * OC_MAX_FOR_6VOLTS); // Appliquer la nouvelle valeur sur OC2
-#endif
+            DRV_OC0_PulseWidthSet(OC_final); // Appliquer la nouvelle valeur sur OC2
+            appData.previous_moyenne = appData.courant_moyenne;
+#endif      
             break;
         }
 
@@ -254,7 +260,8 @@ void Set_PID_Params(float kp, float ki, float kd) {
 float pid_compute(PID_t* pid, float setpoint, float measured) {
     float error = setpoint - measured;
     pid->integral += error;
-    float output = pid->Kp * error + pid->Ki * pid->integral;
+    float derived = error - pid->previous_error;
+    float output = pid->Kp * error + pid->Ki * pid->integral + pid->Kd * derived;
     pid->previous_error = error;
     //return mV
     return output;

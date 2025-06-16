@@ -85,9 +85,11 @@ extern "C" {
 */
 #define ADC_SAMPLE_COUNT 2
 #define SLIDING_WINDOW_SIZE 10
-#define OC_MAX_FOR_6VOLTS 800
+#define OC_MAX_FOR_6VOLTS 973
+#define OC_MIN_FOR_6VOLTS 827 
 #define MAV_TENSION_6V_MV 6000
-
+#define OC_FEEDFORWARD_A 0.173f
+#define OC_FEEDFORWARD_B 765.0f
 /**
  * @brief Structure pour le contrÃ´le PID
  *
@@ -148,6 +150,7 @@ typedef struct
     uint8_t courant_window_index;                 // Index courant de la fenêtre de courant
     uint8_t courant_window_filled;                // Nombre d'éléments valides dans la fenêtre de courant
     float courant_moyenne;
+    float previous_moyenne;
     /* TODO: Define any additional data used by the application. */
 
 } APP_DATA;
