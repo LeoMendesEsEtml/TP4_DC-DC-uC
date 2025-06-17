@@ -110,6 +110,13 @@ APP_DATA appData;
   Remarks:
     See prototype in app.h.
  */
+/**
+ * @brief Initialise l'application et ses variables.
+ *
+ * Place la machine d'état de l'application dans son état initial et initialise les paramètres PID, la consigne de tension, et les buffers de mesure.
+ *
+ * @return Aucun retour.
+ */
 // Best values yet
 //    appData.pid.Kp = 0.0008f;
 //    appData.pid.Ki = 0.00008f;
@@ -141,6 +148,13 @@ void APP_Initialize(void) {
 
   Remarks:
     See prototype in app.h.
+ */
+/**
+ * @brief Machine d'état principale de l'application.
+ *
+ * Gère les différents états de l'application, dont l'initialisation, la gestion des tâches de service, et la régulation PID.
+ *
+ * @return Aucun retour.
  */
 //#define DEBUG
 
@@ -227,18 +241,22 @@ void APP_Tasks(void) {
 // static uint16_t consigne_tension = 2000; // Peut être modifié dynamiquement
 
 /**
- * @brief Permet de configurer dynamiquement la consigne de tension.
- * @param consigne Nouvelle consigne de tension
+ * @brief Modifie dynamiquement la consigne de tension de sortie.
+ *
+ * @param consigne Nouvelle consigne de tension en mV.
+ * @return Aucun retour.
  */
 void Set_Consigne_Tension(uint16_t consigne) {
     appData.consigne_tension = consigne;
 }
 
 /**
- * @brief Permet de configurer dynamiquement les paramètres PID.
- * @param kp Gain proportionnel
- * @param ki Gain intégral
- * @param kd Gain dérivé
+ * @brief Modifie dynamiquement les paramètres du régulateur PID.
+ *
+ * @param kp Gain proportionnel.
+ * @param ki Gain intégral.
+ * @param kd Gain dérivé.
+ * @return Aucun retour.
  */
 void Set_PID_Params(float kp, float ki, float kd) {
     appData.pid.Kp = kp;
@@ -249,26 +267,12 @@ void Set_PID_Params(float kp, float ki, float kd) {
 }
 
 /**
- * @brief Calcule la moyenne des échantillons ADC
- * @param samples Tableau d'échantillons
- * @param count Nombre d'échantillons
- * @return Moyenne
- */
-//static uint16_t adc_average(uint16_t* samples, uint8_t count) {
-//    uint32_t sum = 0;
-//    uint8_t i = 0;
-//    for (i = 0; i < count; i++) {
-//        sum += samples[i];
-//    }
-//    return (uint16_t) (sum / count);
-//}
-
-/**
- * @brief Calcule la sortie PID
- * @param pid Structure PID
- * @param setpoint Consigne
- * @param measured Mesure
- * @return Sortie PID
+ * @brief Calcule la sortie du régulateur PID.
+ *
+ * @param pid Pointeur vers la structure PID à utiliser.
+ * @param setpoint Consigne à atteindre (mV).
+ * @param measured Valeur mesurée (mV).
+ * @return Sortie du PID (mV).
  */
 float pid_compute(PID_t* pid, float setpoint, float measured) {
     float error = setpoint - measured;
@@ -284,11 +288,9 @@ float pid_compute(PID_t* pid, float setpoint, float measured) {
 /**
  * @brief Callback du timer 1 pour la régulation PID de l'alimentation.
  *
- * @details
- * Lit les échantillons ADC (courant et tension), effectue une moyenne glissante sur 10 mesures de tension,
+ * Lit les échantillons ADC (courant et tension), effectue une moyenne glissante sur les mesures de tension,
  * calcule l'erreur de tension, applique le PID et ajuste le PWM sur OC2.
  *
- * @param Aucun paramètre.
  * @return Aucun retour.
  *
  * @pre Le module ADC doit être initialisé et en cours d'acquisition.
@@ -317,11 +319,8 @@ void timer1calback() {
 /**
  * @brief Initialise les périphériques utilisés par l'application.
  *
- * @details
- * Cette fonction initialise l'ADC et démarre les timers nécessaires au fonctionnement de l'application.
- * Elle doit être appelée après l'initialisation du système, typiquement depuis la fonction SYS_Initialize.
+ * Initialise l'ADC, démarre les timers et configure les modules nécessaires au fonctionnement de l'application.
  *
- * @param Aucun paramètre.
  * @return Aucun retour.
  *
  * @pre Le système doit être initialisé avant d'appeler cette fonction.
