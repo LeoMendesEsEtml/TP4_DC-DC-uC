@@ -110,14 +110,18 @@ APP_DATA appData;
   Remarks:
     See prototype in app.h.
  */
+// Best values yet
+//    appData.pid.Kp = 0.0008f;
+//    appData.pid.Ki = 0.00008f;
+//    appData.pid.Kd = 0.0f;
 
 void APP_Initialize(void) {
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
     uint8_t i = 0;
-    appData.pid.Kp = 2.0f;
-    appData.pid.Ki = 0.010f;
-    appData.pid.Kd = 0.001f;
+    appData.pid.Kp = 0.02f;
+    appData.pid.Ki = 0.00008f;
+    appData.pid.Kd = 0.0f;
     appData.pid.previous_error = 0.0f;
     appData.pid.integral = 0.0f;
     appData.consigne_tension = 5000;
@@ -173,8 +177,7 @@ void APP_Tasks(void) {
             for (i = 0; i < SLIDING_WINDOW_SIZE; i++) {
                 sum += appData.tension_window[i];
             }
-            appData.tension_moyenne = (float) sum / SLIDING_WINDOW_SIZE;
-
+            appData.tension_moyenne = (float) (sum / SLIDING_WINDOW_SIZE);
 
             // Calcul PID sur la tension
             appData.pid_out = pid_compute(&appData.pid, (float) appData.consigne_tension, appData.tension_moyenne);
@@ -182,14 +185,23 @@ void APP_Tasks(void) {
             if (appData.pid_out < 0) appData.pid_out = 0;
             //  RC pwm need to be converted to OC pulse 
             if (appData.pid_out > MAV_TENSION_6V_MV) appData.pid_out = MAV_TENSION_6V_MV;
-            // --- Feedforward : calcul de la base OC en fonction du courant ---
-            float OC_final = OC_FEEDFORWARD_A * appData.pid_out + OC_FEEDFORWARD_B;
-            // Limiter la sortie OC_final pour le PWM (0-OC_MAX_FOR_6VOLTS)
-            if (OC_final < 0) OC_final = 0;
-            if (OC_final > OC_MAX_FOR_6VOLTS) OC_final = OC_MAX_FOR_6VOLTS;
+            for (i = 0; i < SLIDING_WINDOW_SIZE; i++) {
+                sum += appData.courant_window[i];
+            }
+            appData.courant_moyenne = (float) (sum / SLIDING_WINDOW_SIZE);
+            if (appData.courant_moyenne >= 2000) {
+                appData.courant_moyenne = 2000;
+                BRIDGE_ENABLEOff();
+                FIX_OUT_ENABLEOff();
+                ADJ_OUT_ENABLEOff();
+                LED0_Toggle();
+            } else {
+                BRIDGE_ENABLEOn();
+                FIX_OUT_ENABLEOn();
+                ADJ_OUT_ENABLEOn();                
+                DRV_OC0_PulseWidthSet((uint16_t) ((appData.pid_out / MAV_TENSION_6V_MV) * OC_MAX_FOR_6VOLTS)); // Appliquer la nouvelle valeur sur OC2
+            }
 
-            DRV_OC0_PulseWidthSet(OC_final); // Appliquer la nouvelle valeur sur OC2
-            appData.previous_moyenne = appData.courant_moyenne;
 #endif      
             break;
         }
@@ -260,8 +272,9 @@ void Set_PID_Params(float kp, float ki, float kd) {
 float pid_compute(PID_t* pid, float setpoint, float measured) {
     float error = setpoint - measured;
     pid->integral += error;
-    float derived = error - pid->previous_error;
-    float output = pid->Kp * error + pid->Ki * pid->integral + pid->Kd * derived;
+    //if (pid->integral > 10000) pid->integral = 10000;
+    float derivative = error - pid->previous_error;
+    float output = pid->Kp * error + pid->Ki * pid->integral + pid->Kd * derivative;
     pid->previous_error = error;
     //return mV
     return output;

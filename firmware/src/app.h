@@ -87,9 +87,14 @@ extern "C" {
 #define SLIDING_WINDOW_SIZE 10
 #define OC_MAX_FOR_6VOLTS 973
 #define OC_MIN_FOR_6VOLTS 827 
+#define OC_MAX_BO 800    
 #define MAV_TENSION_6V_MV 6000
 #define OC_FEEDFORWARD_A 0.173f
 #define OC_FEEDFORWARD_B 765.0f
+#define OC_ABS_MAX 2000    
+#define K_FF_CURR   175
+#define PID_INTEGRAL_MIN -10000.0f
+#define PID_INTEGRAL_MAX  10000.0f     
 /**
  * @brief Structure pour le contrôle PID
  *
