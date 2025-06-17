@@ -171,24 +171,25 @@ void APP_Tasks(void) {
 #endif 
 #ifndef DEBUG
             uint32_t sum = 0;
+            uint32_t sum2 = 0;
+            
             uint8_t i = 0;
             // Calcul de la moyenne glissante
 
             for (i = 0; i < SLIDING_WINDOW_SIZE; i++) {
                 sum += appData.tension_window[i];
+                sum2 += appData.courant_window[i];
             }
-            appData.tension_moyenne = (float) (sum / SLIDING_WINDOW_SIZE);
-
+            appData.tension_moyenne =  (sum / SLIDING_WINDOW_SIZE);
+             appData.courant_moyenne = (sum2 / SLIDING_WINDOW_SIZE);
             // Calcul PID sur la tension
             appData.pid_out = pid_compute(&appData.pid, (float) appData.consigne_tension, appData.tension_moyenne);
             // Limiter la sortie PID pour le PWM (0-100%)
             if (appData.pid_out < 0) appData.pid_out = 0;
             //  RC pwm need to be converted to OC pulse 
             if (appData.pid_out > MAV_TENSION_6V_MV) appData.pid_out = MAV_TENSION_6V_MV;
-            for (i = 0; i < SLIDING_WINDOW_SIZE; i++) {
-                sum += appData.courant_window[i];
-            }
-            appData.courant_moyenne = (float) (sum / SLIDING_WINDOW_SIZE);
+            
+        
             if (appData.courant_moyenne >= 2000) {
                 appData.courant_moyenne = 2000;
                 BRIDGE_ENABLEOff();
@@ -303,7 +304,7 @@ void timer1calback() {
         }
         appData.tension_window[appData.window_index] = 3300 / 1023 * (adc_samples[1]*2);
         appData.window_index = (appData.window_index + 1) % SLIDING_WINDOW_SIZE;
-        appData.courant_window[appData.courant_window_index] = (uint16_t) ((((3300.0f * (float) adc_samples[0]) / 1023.0f) / 48.0f) / 0.01f);
+        appData.courant_window[appData.courant_window_index] = (uint16_t) ((((3300 *adc_samples[0]) / 1023) / 48) / 0.01f);
         appData.courant_window_index = (appData.courant_window_index + 1) % SLIDING_WINDOW_SIZE;
     }
     if (CadenceTask >= 200) {

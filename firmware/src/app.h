@@ -149,7 +149,7 @@ typedef struct
     uint16_t tension_window[SLIDING_WINDOW_SIZE]; // Fenêtre glissante pour la tension
     uint8_t window_index;                        // Index courant de la fenêtre
     uint8_t window_filled;                       // Nombre d'éléments valides dans la fenêtre
-    float tension_moyenne;
+    uint16_t tension_moyenne;
     float pid_out;
     uint16_t courant_window[SLIDING_WINDOW_SIZE]; // Fen�tre glissante pour le courant
     uint8_t courant_window_index;                 // Index courant de la fen�tre de courant
