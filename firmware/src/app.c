@@ -77,6 +77,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
     Application strings and buffers are be defined outside this structure.
  */
 
+// Structure principale contenant toutes les données de l'application (état, PID, buffers, etc.)
 APP_DATA appData;
 
 // *****************************************************************************
@@ -123,15 +124,18 @@ APP_DATA appData;
 //    appData.pid.Kd = 0.0f;
 
 void APP_Initialize(void) {
-    /* Place the App state machine in its initial state. */
+    /* Place la machine d'état dans l'état initial */
     appData.state = APP_STATE_INIT;
     uint8_t i = 0;
-    appData.pid.Kp = 0.02f;
-    appData.pid.Ki = 0.00008f;
-    appData.pid.Kd = 0.0f;
+    // Initialisation des gains PID (Kp, Ki, Kd)
+    appData.pid.Kp = 2.0f;
+    appData.pid.Ki = 0.010f;
+    appData.pid.Kd = 0.001f;
     appData.pid.previous_error = 0.0f;
     appData.pid.integral = 0.0f;
+    // Consigne de tension de sortie en mV (ici 5V)
     appData.consigne_tension = 5000;
+    // Initialisation de la fenêtre glissante pour la moyenne de tension
     for (i = 0; i < SLIDING_WINDOW_SIZE; i++) appData.tension_window[i] = 0;
     appData.window_index = 0;
     appData.window_filled = 0;
@@ -159,17 +163,19 @@ void APP_Initialize(void) {
 //#define DEBUG
 
 void APP_Tasks(void) {
-    /* Check the application's current state. */
+    /* Machine d'état principale de l'application */
     switch (appData.state) {
             /* Application's initial state. */
         case APP_STATE_INIT:
         {
 
+            // Active les drivers de puissance et initialise les périphériques
             BRIDGE_ENABLEOn();
             ADJ_OUT_ENABLEOn();
             App_Init_Periph();
-
+            // Valeur initiale du PWM (OC)
             DRV_OC0_PulseWidthSet(400);
+            // Passe à l'état de service
             appData.state = APP_STATE_SERVICE_TASKS;
 
             break;
@@ -177,46 +183,35 @@ void APP_Tasks(void) {
 
         case APP_STATE_SERVICE_TASKS:
         {
+            // Clignote la LED pour indiquer que l'application tourne
             LED2_Toggle();
 #ifdef DEBUG
-
+            // En mode debug, force une valeur de PWM
             DRV_OC0_PulseWidthSet(827); // Appliquer la nouvelle valeur sur OC2
 
 #endif 
 #ifndef DEBUG
             uint32_t sum = 0;
-            uint32_t sum2 = 0;
-            
             uint8_t i = 0;
-            // Calcul de la moyenne glissante
-
+            // Calcul de la moyenne glissante de la tension mesurée
             for (i = 0; i < SLIDING_WINDOW_SIZE; i++) {
                 sum += appData.tension_window[i];
-                sum2 += appData.courant_window[i];
             }
-            appData.tension_moyenne =  (sum / SLIDING_WINDOW_SIZE);
-             appData.courant_moyenne = (sum2 / SLIDING_WINDOW_SIZE);
-            // Calcul PID sur la tension
+            appData.tension_moyenne = (float) sum / SLIDING_WINDOW_SIZE;
+            // Calcul de la sortie PID à partir de la consigne et de la tension mesurée
             appData.pid_out = pid_compute(&appData.pid, (float) appData.consigne_tension, appData.tension_moyenne);
-            // Limiter la sortie PID pour le PWM (0-100%)
+            // Limite la sortie PID à la plage autorisée (0 à MAV_TENSION_6V_MV)
             if (appData.pid_out < 0) appData.pid_out = 0;
-            //  RC pwm need to be converted to OC pulse 
             if (appData.pid_out > MAV_TENSION_6V_MV) appData.pid_out = MAV_TENSION_6V_MV;
-            
-        
-            if (appData.courant_moyenne >= 2000) {
-                appData.courant_moyenne = 2000;
-                BRIDGE_ENABLEOff();
-                FIX_OUT_ENABLEOff();
-                ADJ_OUT_ENABLEOff();
-                LED0_Toggle();
-            } else {
-                BRIDGE_ENABLEOn();
-                FIX_OUT_ENABLEOn();
-                ADJ_OUT_ENABLEOn();                
-                DRV_OC0_PulseWidthSet((uint16_t) ((appData.pid_out / MAV_TENSION_6V_MV) * OC_MAX_FOR_6VOLTS)); // Appliquer la nouvelle valeur sur OC2
-            }
-
+            // Application d'une correction feedforward pour linéariser la commande PWM
+            float OC_final = OC_FEEDFORWARD_A * appData.pid_out + OC_FEEDFORWARD_B;
+            // Limite la commande PWM à la plage autorisée
+            if (OC_final < 0) OC_final = 0;
+            if (OC_final > OC_MAX_FOR_6VOLTS) OC_final = OC_MAX_FOR_6VOLTS;
+            // Applique la nouvelle valeur PWM (OC) au driver
+            DRV_OC0_PulseWidthSet(OC_final);
+            // Sauvegarde la moyenne précédente du courant (pour d'autres traitements éventuels)
+            appData.previous_moyenne = appData.courant_moyenne;
 #endif      
             break;
         }
@@ -247,6 +242,7 @@ void APP_Tasks(void) {
  * @return Aucun retour.
  */
 void Set_Consigne_Tension(uint16_t consigne) {
+    // Modifie la consigne de tension de sortie (en mV)
     appData.consigne_tension = consigne;
 }
 
@@ -259,6 +255,7 @@ void Set_Consigne_Tension(uint16_t consigne) {
  * @return Aucun retour.
  */
 void Set_PID_Params(float kp, float ki, float kd) {
+    // Modifie dynamiquement les gains du PID et réinitialise l'intégrale et l'erreur précédente
     appData.pid.Kp = kp;
     appData.pid.Ki = ki;
     appData.pid.Kd = kd;
@@ -275,13 +272,20 @@ void Set_PID_Params(float kp, float ki, float kd) {
  * @return Sortie du PID (mV).
  */
 float pid_compute(PID_t* pid, float setpoint, float measured) {
+    // Calcul de l'erreur entre la consigne et la mesure
     float error = setpoint - measured;
+    // Intégration de l'erreur (pour l'action intégrale)
     pid->integral += error;
-    //if (pid->integral > 10000) pid->integral = 10000;
-    float derivative = error - pid->previous_error;
-    float output = pid->Kp * error + pid->Ki * pid->integral + pid->Kd * derivative;
+    // Calcul de la dérivée de l'erreur
+    float derived = error - pid->previous_error;
+    // Limite l'intégrale pour éviter le windup
+    if (pid->integral > PID_INTEGRAL_MAX) pid->integral = PID_INTEGRAL_MAX;
+    if (pid->integral < PID_INTEGRAL_MIN) pid->integral = PID_INTEGRAL_MIN;
+    // Calcul de la sortie PID
+    float output = pid->Kp * error + pid->Ki * pid->integral + pid->Kd * derived;
+    // Sauvegarde l'erreur pour la prochaine itération
     pid->previous_error = error;
-    //return mV
+    // Retourne la sortie PID (en mV)
     return output;
 }
 
@@ -297,18 +301,24 @@ float pid_compute(PID_t* pid, float setpoint, float measured) {
  * @post Le PWM OC2 est ajusté selon la régulation PID.
  */
 void timer1calback() {
+    // Callback appelé périodiquement par le timer 1 pour gérer la régulation
     static uint16_t adc_samples[ADC_SAMPLE_COUNT];
     uint8_t i = 0;
     static uint8_t CadenceTask = 0;
+    // Vérifie si de nouveaux échantillons ADC sont disponibles
     if (DRV_ADC_SamplesAvailable()) {
+        // Récupère les échantillons ADC (courant et tension)
         for (i = 0; i < ADC_SAMPLE_COUNT; i++) {
             adc_samples[i] = DRV_ADC_SamplesRead(i);
         }
-        appData.tension_window[appData.window_index] = 3300 / 1023 * (adc_samples[1]*2);
+        // Convertit la valeur ADC de la tension de sortie et la stocke dans la fenêtre glissante
+        appData.tension_window[appData.window_index] = (uint16_t)( (3300.0f * (float)adc_samples[1] * 2.0f) / 1023.0f );
         appData.window_index = (appData.window_index + 1) % SLIDING_WINDOW_SIZE;
-        appData.courant_window[appData.courant_window_index] = (uint16_t) ((((3300 *adc_samples[0]) / 1023) / 48) / 0.01f);
+        // Convertit la valeur ADC du courant de sortie et la stocke dans la fenêtre glissante
+        appData.courant_window[appData.courant_window_index] = (uint16_t) ((((3300.0f * (float) adc_samples[0]) / 1023.0f) / 48.0f) / 0.01f);
         appData.courant_window_index = (appData.courant_window_index + 1) % SLIDING_WINDOW_SIZE;
     }
+    // Toutes les 200 itérations, déclenche la mise à jour de l'état principal
     if (CadenceTask >= 200) {
         CadenceTask = 0;
         appData.state = APP_STATE_SERVICE_TASKS;
@@ -327,12 +337,12 @@ void timer1calback() {
  * @post Les périphériques ADC et timers sont prêts à être utilisés.
  */
 void App_Init_Periph(void) {
-    /* Initialize the ADC */
+    // Initialise l'ADC
     DRV_ADC_Open();
     DRV_ADC_Start();
-
+    // Démarre le module de sortie PWM (OC)
     DRV_OC0_Start();
-    /* Start the Timers */
+    // Démarre les timers nécessaires à l'application
     DRV_TMR0_Start();
     DRV_TMR1_Start();
     DRV_TMR2_Start();
